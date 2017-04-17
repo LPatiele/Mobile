@@ -3,26 +3,26 @@ import { NavController, AlertController, NavParams, LoadingController } from 'io
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../providers/auth-service';
 import { HomePage } from '../home/home';
-import { Register } from '../register/register';
-import { Resetpwd} from '../resetpwd/resetpwd';
 
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html'
+  selector: 'page-register',
+  templateUrl: 'register.html'
 })
 
-export class Login {
+export class Register {
 
-  public loginForm;
+  public registerForm;
   emailChanged: boolean = false;
   passwordChanged: boolean = false;
+  fullnameChanged: boolean = false;
   submitAttempt: boolean = false;
   loading: any;
 
   constructor(public navCtrl: NavController, public authService: AuthService, public navParams: NavParams, public formBuilder: FormBuilder,public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
     let EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
-    this.loginForm = formBuilder.group({
+    this.registerForm = formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.pattern(EMAIL_REGEXP)])],
+      fullname: ['', Validators.compose([ Validators.required])],
       password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
     });
   }
@@ -32,21 +32,13 @@ export class Login {
     this[field + "Changed"] = true;
   }
 
-  register(){
-    this.navCtrl.push(Register);
-  }
-
-  resetPwd(){
-    this.navCtrl.push(Resetpwd);
-  }
-
-  loginUser(){
+  doRegister(){
     this.submitAttempt = true;
 
-    if (!this.loginForm.valid){
-      console.log(this.loginForm.value);
+    if (!this.registerForm.valid){
+      console.log(this.registerForm.value);
     } else {
-      this.authService.doLogin(this.loginForm.value.email, this.loginForm.value.password).then( authService => {
+      this.authService.register(this.registerForm.value.email, this.registerForm.value.password).then( authService => {
         this.navCtrl.setRoot(HomePage);
       }, error => {
         this.loading.dismiss().then( () => {

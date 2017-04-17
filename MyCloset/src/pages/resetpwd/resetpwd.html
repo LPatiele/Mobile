@@ -1,0 +1,29 @@
+<<ion-header>
+
+  <ion-navbar>
+    <ion-title>resetpwd</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="page">
+  <div class="logo">
+  <div class="logo-icon">
+    <img height="100" src="../../assets/image/gp.gif">
+  </div>
+</div>
+  <form [formGroup]="resetpwdForm" (submit)="resetPwd()" novalidate>
+    <ion-item>
+      <ion-input #email formControlName="email" type="email" (change)="elementChanged(email)"
+        placeholder="E-mail"
+        [class.invalid]="!resetpwdForm.controls.email.valid && (emailChanged || submitAttempt)"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!resetpwdForm.controls.email.valid  && (emailChanged || submitAttempt)">
+      <p>Por favor insira um e-mail valido.</p>
+    </ion-item>
+    <button ion-button block color="light" type="submit">
+      Reset Password
+    </button>
+  </form>
+</ion-content>

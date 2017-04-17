@@ -1,26 +1,44 @@
 <ion-header>
+
   <ion-navbar>
-    <ion-title>
-      Login
-    </ion-title>
+    <ion-title>Login</ion-title>
   </ion-navbar>
+
 </ion-header>
 
-<ion-content >
-  <ion-list>
 
-    <ion-item>
-      <ion-input type="text" placeholder="Username">
-        <ion-icon name="at"></ion-icon>
-      </ion-input>
-    </ion-item>
-
+<ion-content padding class="page">
+  <div class="logo">
+  <div class="logo-icon">
+    <img height="100" src="../../assets/image/gp.gif">
+  </div>
+</div>
+  <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
     <ion-item >
-      <ion-input type="password" placeholder="Password">
-        <ion-icon name="lock"></ion-icon>
-      </ion-input>
+      <ion-input #email formControlName="email" type="email" (change)="elementChanged(email)"
+        placeholder="E-mail"
+        [class.invalid]="!loginForm.controls.email.valid && (emailChanged || submitAttempt)"></ion-input>
     </ion-item>
+    <ion-item class="error-message" *ngIf="!loginForm.controls.email.valid  && (emailChanged || submitAttempt)">
+      <p>Por favor insira um e-mail valido.</p>
+    </ion-item>
+    <ion-item>
+      <ion-input #password formControlName="password" type="password" (change)="elementChanged(password)"
+        placeholder="Senha"
+        [class.invalid]="!loginForm.controls.password.valid && (passwordChanged || submitAttempt)"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!loginForm.controls.password.valid  && (passwordChanged || submitAttempt)">
+      <p>Deve conter pelo menos 6 characters.</p>
+    </ion-item>
+    <button ion-button block color="light" type="submit" >
+      Login
+    </button>
+  </form>
 
-  </ion-list>
-
+  <button ion-button block clear (click)="register()">
+    No have an account? Register Now
+  </button>
+  <button ion-button block clear (click)="resetPwd()">
+    Forgot Password
+  </button>
 </ion-content>

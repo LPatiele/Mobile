@@ -3,27 +3,23 @@ import { NavController, AlertController, NavParams, LoadingController } from 'io
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../providers/auth-service';
 import { HomePage } from '../home/home';
-import { Register } from '../register/register';
-import { Resetpwd} from '../resetpwd/resetpwd';
 
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html'
+  selector: 'page-resetpwd',
+  templateUrl: 'resetpwd.html'
 })
 
-export class Login {
+export class Resetpwd{
 
-  public loginForm;
+  public resetpwdForm;
   emailChanged: boolean = false;
-  passwordChanged: boolean = false;
   submitAttempt: boolean = false;
   loading: any;
 
   constructor(public navCtrl: NavController, public authService: AuthService, public navParams: NavParams, public formBuilder: FormBuilder,public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
     let EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
-    this.loginForm = formBuilder.group({
-      email: ['', Validators.compose([Validators.required, Validators.pattern(EMAIL_REGEXP)])],
-      password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+    this.resetpwdForm = formBuilder.group({
+      email: ['', Validators.compose([Validators.required, Validators.pattern(EMAIL_REGEXP)])]
     });
   }
 
@@ -32,21 +28,11 @@ export class Login {
     this[field + "Changed"] = true;
   }
 
-  register(){
-    this.navCtrl.push(Register);
-  }
-
-  resetPwd(){
-    this.navCtrl.push(Resetpwd);
-  }
-
-  loginUser(){
-    this.submitAttempt = true;
-
-    if (!this.loginForm.valid){
-      console.log(this.loginForm.value);
+  resetPwd() {
+    if (!this.resetpwdForm.valid){
+      console.log(this.resetpwdForm.value);
     } else {
-      this.authService.doLogin(this.loginForm.value.email, this.loginForm.value.password).then( authService => {
+      this.authService.resetPassword(this.resetpwdForm.value.email).then( authService => {
         this.navCtrl.setRoot(HomePage);
       }, error => {
         this.loading.dismiss().then( () => {
