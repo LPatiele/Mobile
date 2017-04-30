@@ -38,7 +38,7 @@ export class Register {
     if (!this.registerForm.valid){
       console.log(this.registerForm.value);
     } else {
-      this.authService.register(this.registerForm.value.email, this.registerForm.value.password).then( authService => {
+      this.authService.register(this.registerForm.value.email, this.registerForm.value.password, this.registerForm.value.fullname).then( authService => {
         this.navCtrl.setRoot(HomePage);
       }, error => {
         this.loading.dismiss().then( () => {

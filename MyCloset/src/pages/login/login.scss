@@ -14,6 +14,7 @@ page-login {
     }
   }
 
+
   .invalid {
     border-bottom: 1px solid #FF6153;
   }
@@ -22,24 +23,26 @@ page-login {
     border-bottom: 0 !important;
   }
 
-  .item{
-    background-color: transparent;
+  .logo {
+    height: 25%;
+    width: 100%;
+    margin-bottom: 50px;
+
+    .logo-icon {
+      text-align: center;
+      font-size: 40px;
+      padding-top: 5%;
+      color: currentColor;
+      h2 {
+        margin: inherit;
+        color: #212121;//ou #2c2c2c
+        // color: #DB7093;
+      }
+    }
+
   }
 
-  .page{
-     background-image: url('../../assets/image/bools.jpg');
-     background-repeat: no-repeat;
-     background-size: cover;
-}
 
-  .logo {
-   height: 30%;
-   width: 100%;
-   .logo-icon {
-     text-align: center;
-     font-size: 40px;
-     padding-top: 10%;
-     color: currentColor;
-   }
- }
+
+
 }

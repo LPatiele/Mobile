@@ -1,23 +1,39 @@
-import { Component } from '@angular/core';
-import { AlertController, ActionSheetController, MenuController } from 'ionic-angular';
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import { Injectable, ViewChild } from '@angular/core';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
 
-@Component({
-  selector: 'page-closet',
-  templateUrl: 'closet.html'
-})
+import { Closet } from '../pages/closet/closet';
+import { HomePage } from '../pages/home/home';
+import { Login } from '../pages/login/login';
+import { AuthService } from './auth-service';
 
-export class Closet {
-  private closetsID: string;
-  private categorias: FirebaseListObservable<any>;
-  roupas: FirebaseListObservable<any>;//equivale a songs
 
-  constructor( public alertCtrl: AlertController, public menuCtrl: MenuController, public af: AngularFire, public actionSheetCtrl: ActionSheetController) {
+import { AlertController, ActionSheetController, NavController } from 'ionic-angular';//menu1
+import {AngularFire, FirebaseListObservable} from 'angularfire2';//menu1
+import { Camera } from '@ionic-native/camera';
+import firebase from 'firebase';
+
+
+@Injectable()
+export class MenuService {
+  @ViewChild('mycontent') nav: NavController
+
+
+  roupas: FirebaseListObservable<any>;//menu1
+
+
+  constructor(public http: Http, public authService: AuthService, public alertCtrl: AlertController, public af: AngularFire, public actionSheetCtrl: ActionSheetController) {
+
     this.roupas = af.database.list('/roupas');
-    this.menuCtrl.enable(true, 'menu2');
+
   }
 
-  addRoupa(){
+  goNovidades() {
+    this.nav.setRoot(HomePage);
+  }
+
+
+  addRoupa() {//menu1
     let prompt = this.alertCtrl.create({
       title: 'Nova Categoria',
       message: "Adicione uma nova categoria",
@@ -47,7 +63,8 @@ export class Closet {
     prompt.present();
   }
 
-  showOptions(roupaId, roupaCategoria) {
+
+  showOptions(roupaId, roupaCategoria) {//menu1
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Opções',
       buttons: [
@@ -57,12 +74,12 @@ export class Closet {
           handler: () => {
             this.removeCategoria(roupaId);
           }
-        },{
+        }, {
           text: 'Renomear',
           handler: () => {
             this.updateCategoria(roupaId, roupaCategoria);
           }
-        },{
+        }, {
           text: 'Cancelar',
           role: 'cancel',
           handler: () => {
@@ -74,11 +91,11 @@ export class Closet {
     actionSheet.present();
   }
 
-  removeCategoria(roupaId: string){
+  removeCategoria(roupaId: string) {//menu1
     this.roupas.remove(roupaId);
   }
 
-  updateCategoria(roupaId, roupaCategoria){
+  updateCategoria(roupaId, roupaCategoria) {//menu1
     let prompt = this.alertCtrl.create({
       title: 'Renomear Categoria',
       message: "Altere o nome da categoria",
@@ -108,4 +125,35 @@ export class Closet {
     });
     prompt.present();
   }
+
+  goCloset() {
+    this.nav.setRoot(Closet);
+  }
+
+  goLooks() {
+
+  }
+
+
+
+  goDicas() {
+
+  }
+
+  goMaquiagem() {
+
+  }
+
+  goCabelo() {
+
+  }
+
+  goCompras() {
+
+  }
+
+  logout() {
+    this.authService.doLogout();
+  }
+
 }

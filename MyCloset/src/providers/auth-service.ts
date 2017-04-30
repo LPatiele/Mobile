@@ -10,9 +10,8 @@ export class AuthService {
   public userData: any;
 
   constructor(public http: Http) {
-    console.log('Hello AuthService Provider');
     this.fireAuth = firebase.auth();
-    this.userData = firebase.database().ref('/userData');
+    this.userData = firebase.database().ref('/userData/');
   }
 
   // function for login
@@ -21,10 +20,20 @@ export class AuthService {
   }
 
   //function for the register
-  register(email: string, password: string): any {
+  register(email: string, password: string, username: string): any {
   return this.fireAuth.createUserWithEmailAndPassword(email, password)
     .then((newUser) => {
-      this.userData.child(newUser.uid).set({email: email});
+      this.userData.child(newUser.uid).set({
+        email: email,
+        username: username,
+        amigo: null,
+        // gp:
+        nome: username,
+        url: "https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Fb.jpg?alt=media&token=4967bcf8-2e4e-4556-80a9-d62d72dd5072",
+        imgNome:"default.jpg",
+        ultimaAtualizacao: new Date().getTime()
+        // place:
+      });
     });
   }
 
