@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, MenuController } from 'ionic-angular';
 import { FotoService } from '../../providers/foto-service';
+import { PerfilService } from '../../providers/perfil-service';
 import firebase from 'firebase';
 
 
@@ -12,18 +13,12 @@ import firebase from 'firebase';
 export class Feed {
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fotoService: FotoService, public menuCtrl: MenuController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public perfilService: PerfilService, public fotoService: FotoService, public menuCtrl: MenuController) {
     this.menuCtrl.enable(true, 'menu2');
-    this.fotoService.setImgPerfil();
+    // this.perfilService.setImgPerfil();
+    this.perfilService.setDataPerfil();
   }
 
-update(){
-  var user = firebase.auth().currentUser;
 
-  user.updateProfile({
-    displayName: "Looha",
-    photoURL: "https://example.com/jane-q-user/profile.jpg"
-  })
-}
 
 }

@@ -1,14 +1,8 @@
-import { Injectable, ViewChild } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-
-import { Closet } from '../pages/closet/closet';
-import { HomePage } from '../pages/home/home';
-import { Login } from '../pages/login/login';
 import { AuthService } from './auth-service';
-
-
-import { AlertController, ActionSheetController, NavController } from 'ionic-angular';//menu1
+import { AlertController, ActionSheetController} from 'ionic-angular';//menu1
 import {AngularFire, FirebaseListObservable} from 'angularfire2';//menu1
 import { Camera } from '@ionic-native/camera';
 import firebase from 'firebase';
@@ -16,22 +10,11 @@ import firebase from 'firebase';
 
 @Injectable()
 export class MenuService {
-  @ViewChild('mycontent') nav: NavController
-
-
   roupas: FirebaseListObservable<any>;//menu1
 
-
   constructor(public http: Http, public authService: AuthService, public alertCtrl: AlertController, public af: AngularFire, public actionSheetCtrl: ActionSheetController) {
-
     this.roupas = af.database.list('/roupas');
-
   }
-
-  goNovidades() {
-    this.nav.setRoot(HomePage);
-  }
-
 
   addRoupa() {//menu1
     let prompt = this.alertCtrl.create({
@@ -62,7 +45,6 @@ export class MenuService {
     });
     prompt.present();
   }
-
 
   showOptions(roupaId, roupaCategoria) {//menu1
     let actionSheet = this.actionSheetCtrl.create({
@@ -124,32 +106,6 @@ export class MenuService {
       ]
     });
     prompt.present();
-  }
-
-  goCloset() {
-    this.nav.setRoot(Closet);
-  }
-
-  goLooks() {
-
-  }
-
-
-
-  goDicas() {
-
-  }
-
-  goMaquiagem() {
-
-  }
-
-  goCabelo() {
-
-  }
-
-  goCompras() {
-
   }
 
   logout() {

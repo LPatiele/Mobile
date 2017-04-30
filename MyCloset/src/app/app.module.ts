@@ -12,6 +12,7 @@ import { HomePage } from '../pages/home/home';
 import { Login } from '../pages/login/login';
 import { Closet } from '../pages/closet/closet';
 import { Feed } from '../pages/feed/feed';
+import { Amigos } from '../pages/amigos/amigos';
 import { Register } from '../pages/register/register';
 import { Resetpwd } from '../pages/resetpwd/resetpwd';
 
@@ -19,6 +20,7 @@ import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { AuthService } from '../providers/auth-service';
 import { MenuService } from '../providers/menu-service';
 import { FotoService } from '../providers/foto-service';
+import { PerfilService } from '../providers/perfil-service';
 
 export const firebaseConfig = {
      apiKey: "AIzaSyDNEf5uzs5Ujo93UbXN_TNjZJ_qYMTJHGg",
@@ -44,7 +46,8 @@ firebase.initializeApp(firebaseConfig);
     Register,
     Resetpwd,
     Closet,
-    Feed
+    Feed,
+    Amigos
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -60,7 +63,8 @@ firebase.initializeApp(firebaseConfig);
     Register,
     Resetpwd,
     Closet,
-    Feed
+    Feed,
+    Amigos
   ],
   providers: [
     StatusBar,
@@ -69,6 +73,7 @@ firebase.initializeApp(firebaseConfig);
     Camera,
     MenuService,
     FotoService,
+    PerfilService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

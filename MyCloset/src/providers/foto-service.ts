@@ -13,21 +13,21 @@ declare var window: any;
 @Injectable()
 export class FotoService {
 
-  imgPerfil: any;
+  // imgPerfil: any;
 
   constructor(public http: Http, private camera: Camera, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController) {
-    console.log('Hello FotoService Provider');
+
   }
 
-  setImgPerfil(){
-    this.carregaFoto((data) => {
-      this.imgPerfil = data;
-    });
-  }
+  // setImgPerfil(){
+  //   this.carregaFotoPerfil((data) => {
+  //     this.imgPerfil = data;
+  //   });
+  // }
 
   setOptions(srcType) {
     var options = {
-      quality: 50,
+      quality: 100,
       destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -88,6 +88,56 @@ export class FotoService {
     prompt.present();
   }
 
+  goFotoPerfil() {
+    let prompt = this.alertCtrl.create({
+      title: 'Alterar Imagem',
+      message: "Altere a imagem de perfil",
+      buttons: [
+        {
+          text: 'Camera',
+          handler: data => {
+            var srcType = this.camera.PictureSourceType.CAMERA;
+            var options = this.setOptions(srcType);
+
+            this.camera.getPicture(options).then((imageData) => {
+              return this.toBlob(imageData, 1);
+            }).then((imageBlob) => {
+              return this.uploadDataPerfil(imageBlob);
+            }).then((uploadSnapshot: any) => {
+              return this.salvarReferencia(uploadSnapshot);
+            }).then((uploadSnapshot: any) => {
+              //alert('Arquivo salvo para o catálogo com sucesso');
+            }, (error) => {
+              alert('Erro ' + (error.message || error));
+
+            });
+
+          }
+        },
+        {
+          text: 'Galeria',
+          handler: data => {
+            var srcType = this.camera.PictureSourceType.PHOTOLIBRARY;
+            var options = this.setOptions(srcType);
+
+            this.camera.getPicture(options).then((imageData) => {
+              return this.toBlob(imageData, 2);
+            }).then((imageBlob) => {
+              return this.uploadDataPerfil(imageBlob);
+            }).then((uploadSnapshot: any) => {
+              return this.salvarReferencia(uploadSnapshot);
+            }).then((uploadSnapshot: any) => {
+              //alert('Arquivo salvo para o catálogo com sucesso');
+            }, (error) => {
+              alert('Erro ' + (error.message || error));
+            });
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
   toBlob(imgUri, tipo: number) {
     var caminho;
     if (tipo == 1) {
@@ -115,13 +165,31 @@ export class FotoService {
     });
   }
 
-  uploadData(imageBlob) {
+  uploadDataPerfil(imageBlob) {
     var fileName = 'amostra-' + new Date().getTime() + '.jpg';
     var pasta = firebase.auth().currentUser.uid;
 
     var anteriorName= this.fotoAnterior();
     var anterior= firebase.storage().ref().child('imagens/' + pasta + '/' + anteriorName);
     anterior.delete();
+
+    return new Promise((resolve, reject) => {
+      var fileRef = firebase.storage().ref('imagens/' + pasta + '/' + fileName);
+      var uploadTask = fileRef.put(imageBlob);
+
+      uploadTask.on('state_changed', (snapshot) => {
+        console.log('snapshot progess ' + snapshot);
+      }, (error) => {
+        reject(error);
+      }, () => {
+        resolve(uploadTask.snapshot);
+      });
+    });
+  }
+
+  uploadData(imageBlob) {
+    var fileName = 'amostra-' + new Date().getTime() + '.jpg';
+    var pasta = firebase.auth().currentUser.uid;
 
     return new Promise((resolve, reject) => {
       var fileRef = firebase.storage().ref('imagens/' + pasta + '/' + fileName);
@@ -145,7 +213,7 @@ export class FotoService {
     return element;
   }
 
-  carregaFoto(callback: (data) => void) {
+  carregaFotoPerfil(callback: (data) => void) {
     firebase.database().ref('userData').child(firebase.auth().currentUser.uid).once('value', (snapshot: any) => {
       var element = snapshot.val().url;
       callback(element);
@@ -165,10 +233,10 @@ export class FotoService {
       }).catch((error) => {
         reject(error);
       });
-      this.carregaFoto((data) => {
-        this.imgPerfil = data;
-        console.log("URL: ", this.imgPerfil);
-      });
+      // this.carregaFotoPerfil((data) => {
+      //   this.imgPerfil = data;
+      //   console.log("URL: ", this.imgPerfil);
+      // });
     });
 
   }

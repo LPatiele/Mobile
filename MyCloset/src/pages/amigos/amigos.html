@@ -22,16 +22,22 @@
 </ion-header>
 
 <ion-content padding class="page">
-  <ion-grid>
+  <!-- <ion-grid>
 <ion-row>
   <ion-col col-6 >
     <ion-card >
-     <img  src={{this.perfilService.imgPerfil}}/>
+     <img  src={{this.fotoService.imgPerfil}}/>
    </ion-card>
   </ion-col>
 </ion-row>
-  </ion-grid>
+  </ion-grid> -->
 
+  <ion-list>
+    <ion-item  *ngFor="let user of usuarios | async" padding class="list">
+      <img src={{user.url}}>
+            {{user.nome}}
+    </ion-item>
+  </ion-list>
 
   <ion-fab right bottom>
    <button ion-fab mini color="light"><ion-icon name="search" ></ion-icon></button>
