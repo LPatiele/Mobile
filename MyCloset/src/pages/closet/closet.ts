@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, ActionSheetController, MenuController } from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import { PerfilService } from '../../providers/perfil-service';
 
 @Component({
   selector: 'page-closet',
@@ -12,12 +13,13 @@ export class Closet {
   private categorias: FirebaseListObservable<any>;
   roupas: FirebaseListObservable<any>;//equivale a songs
 
-  constructor( public alertCtrl: AlertController, public menuCtrl: MenuController, public af: AngularFire, public actionSheetCtrl: ActionSheetController) {
+  constructor(public perfilService: PerfilService, public alertCtrl: AlertController, public menuCtrl: MenuController, public af: AngularFire, public actionSheetCtrl: ActionSheetController) {
+    this.perfilService.setDataPerfil();
     this.roupas = af.database.list('/roupas');
-    this.menuCtrl.enable(true, 'menu2');
+    this.menuCtrl.enable(true, 'menu1');
   }
 
-  addRoupa(){
+  addRoupa() {
     let prompt = this.alertCtrl.create({
       title: 'Nova Categoria',
       message: "Adicione uma nova categoria",
@@ -57,12 +59,12 @@ export class Closet {
           handler: () => {
             this.removeCategoria(roupaId);
           }
-        },{
+        }, {
           text: 'Renomear',
           handler: () => {
             this.updateCategoria(roupaId, roupaCategoria);
           }
-        },{
+        }, {
           text: 'Cancelar',
           role: 'cancel',
           handler: () => {
@@ -74,11 +76,11 @@ export class Closet {
     actionSheet.present();
   }
 
-  removeCategoria(roupaId: string){
+  removeCategoria(roupaId: string) {
     this.roupas.remove(roupaId);
   }
 
-  updateCategoria(roupaId, roupaCategoria){
+  updateCategoria(roupaId, roupaCategoria) {
     let prompt = this.alertCtrl.create({
       title: 'Renomear Categoria',
       message: "Altere o nome da categoria",

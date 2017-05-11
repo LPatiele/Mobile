@@ -1,66 +1,73 @@
 <ion-menu id="menu1" [content]="mycontent">
   <ion-content class="page-menu">
     <div class="logo">
-    <div class="logo-icon">
-      <img height="100" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Fgp.gif?alt=media&token=26baafa7-e550-4fd0-96a8-c7bf07f9fa77">
-      <h2>My Closet</h2>
+      <div class="logo-icon">
+        <img height="100" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Fgp.gif?alt=media&token=26baafa7-e550-4fd0-96a8-c7bf07f9fa77">
+        <h2>My Closet</h2>
+      </div>
     </div>
-  </div>
     <ion-fab right bottom>
       <button ion-fab mini color="light" (click)="this.menu.addRoupa()"><ion-icon name="add"></ion-icon></button>
     </ion-fab>
-    <ion-list>
-      <ion-item *ngFor="let roupa of roupas | async" (click)="this.menu.showOptions(roupa.$key, roupa.title)" padding class="list">
+    <ion-list class="listA">
+      <ion-item *ngFor="let roupa of this.menu.roupas | async" (click)="this.menu.showOptions(roupa.$key, roupa.title)" padding class="listA" menuToggle>
         <img item-left src='https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Fcabide.png?alt=media&token=c3fb757d-31cd-4dd1-ac2d-e9ed87d70ac7'> {{this.menu.roupa.title}}
       </ion-item>
     </ion-list>
   </ion-content>
+  <ion-fab right bottom>
+   <button ion-fab mini color="light" (click)="goNovidades()" menuToggle><ion-icon name="return-left" ></ion-icon></button>
+ </ion-fab>
 </ion-menu>
 
-<ion-menu id="menu2" [content]="mycontent" >
+<ion-menu id="menu2" [content]="mycontent">
   <ion-content class="page-menu">
     <div class="logo">
-    <div class="logo-icon">
-      <img height="100" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Fgp.gif?alt=media&token=26baafa7-e550-4fd0-96a8-c7bf07f9fa77">
-      <h2>My Closet</h2>
+      <div class="logo-icon">
+        <img height="100" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Fgp.gif?alt=media&token=26baafa7-e550-4fd0-96a8-c7bf07f9fa77">
+        <h2>My Closet</h2>
+      </div>
     </div>
-  </div>
-    <ion-list>
-      <button ion-item (click)="goNovidades()" >
-        <img class="img" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Farmario.png?alt=media&token=e54d47bd-3aa8-4a4e-a0c5-284f7871672c"  />
-        Novidades
-      </button>
-      <button ion-item (click)="goCloset()">
-        <img class="img" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Farmario.png?alt=media&token=e54d47bd-3aa8-4a4e-a0c5-284f7871672c"  />
-        Guarda-roupas
-      </button>
-      <button ion-item (click)="goLooks()">
+    <ion-list class="listA">
+      <button ion-item (click)="goNovidades()" menuToggle>
         <img class="img" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Farmario.png?alt=media&token=e54d47bd-3aa8-4a4e-a0c5-284f7871672c"  />
         Looks
       </button>
-          <button ion-item (click)="goDicas()">
+      <button ion-item (click)="goCloset()" menuToggle>
         <img class="img" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Farmario.png?alt=media&token=e54d47bd-3aa8-4a4e-a0c5-284f7871672c"  />
-        Dicas
+        Closet
       </button>
-      <button ion-item (click)="goMaquiagem()">
+      <button ion-item (click)="goLooks()" menuToggle>
         <img class="img" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Farmario.png?alt=media&token=e54d47bd-3aa8-4a4e-a0c5-284f7871672c"  />
-        Maquiagem
+        My Looks
       </button>
-      <button ion-item (click)="goCabelo()">
+      <button ion-item (click)="goSeguir()" menuToggle>
         <img class="img" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Farmario.png?alt=media&token=e54d47bd-3aa8-4a4e-a0c5-284f7871672c"  />
-        Cabelo
+        Follow
       </button>
-      <button ion-item (click)="goAmigos()">
+      <button ion-item (click)="goDicas()" menuToggle>
         <img class="img" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Farmario.png?alt=media&token=e54d47bd-3aa8-4a4e-a0c5-284f7871672c"  />
-        Amigos
+        Fashion tips
       </button>
-      <button ion-item (click)="goCompras()">
+      <button ion-item (click)="goMaquiagem()" menuToggle>
         <img class="img" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Farmario.png?alt=media&token=e54d47bd-3aa8-4a4e-a0c5-284f7871672c"  />
-        Compras
+        Make
       </button>
-      <button ion-item (click)="this.menu.logout()">
+      <button ion-item (click)="goCabelo()" menuToggle>
         <img class="img" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Farmario.png?alt=media&token=e54d47bd-3aa8-4a4e-a0c5-284f7871672c"  />
-        Sair
+        Hair
+      </button>
+      <button ion-item (click)="goAmigos()" menuToggle>
+        <img class="img" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Farmario.png?alt=media&token=e54d47bd-3aa8-4a4e-a0c5-284f7871672c"  />
+        Friends
+      </button>
+      <button ion-item (click)="goCompras()" menuToggle>
+        <img class="img" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Farmario.png?alt=media&token=e54d47bd-3aa8-4a4e-a0c5-284f7871672c"  />
+        Buy
+      </button>
+      <button ion-item (click)="this.menu.logout()" menuToggle>
+        <img class="img" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Farmario.png?alt=media&token=e54d47bd-3aa8-4a4e-a0c5-284f7871672c"  />
+        Exit
       </button>
     </ion-list>
   </ion-content>

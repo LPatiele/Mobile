@@ -2,6 +2,7 @@
   <ion-navbar>
     <ion-buttons >
       <button ion-button>
+    <!-- <div class="perfil"> -->
       <ion-item>
         <ion-avatar item-left>
           <img src={{this.perfilService.imgPerfil}} />
@@ -9,6 +10,7 @@
         <h2>{{this.perfilService.nome}}</h2>
         <p>{{this.perfilService.userName}} </p>
       </ion-item>
+    <!-- </div> -->
     </button>
     </ion-buttons>
     <ion-buttons end>
@@ -19,17 +21,7 @@
   </ion-navbar>
 </ion-header>
 
+
 <ion-content padding class="page">
-
-  <ion-list>
-    <ion-item  *ngFor="let roupa of roupas | async" (click)="showOptions(roupa.$key, roupa.title)" padding class="list">
-      <img src="../../assets/icon/cabide.png">
-            {{roupa.title}}
-    </ion-item>
-  </ion-list>
-
-  <ion-fab left bottom>
-     <button ion-fab mini color="light" (click)="addRoupa()"><ion-icon name="add" ></ion-icon></button>
-   </ion-fab>
 
 </ion-content>

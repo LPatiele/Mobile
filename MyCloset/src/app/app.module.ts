@@ -15,6 +15,11 @@ import { Feed } from '../pages/feed/feed';
 import { Amigos } from '../pages/amigos/amigos';
 import { Register } from '../pages/register/register';
 import { Resetpwd } from '../pages/resetpwd/resetpwd';
+import { AddAmigos } from '../pages/add-amigos/add-amigos';
+import { MeusAmigos } from '../pages/meus-amigos/meus-amigos';
+import { Seguindo } from '../pages/seguindo/seguindo';
+import { Seguidores } from '../pages/seguidores/seguidores';
+import { Seguir } from '../pages/seguir/seguir';
 
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { AuthService } from '../providers/auth-service';
@@ -47,7 +52,12 @@ firebase.initializeApp(firebaseConfig);
     Resetpwd,
     Closet,
     Feed,
-    Amigos
+    Amigos,
+    AddAmigos,
+    MeusAmigos,
+    Seguindo,
+    Seguidores,
+    Seguir
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -64,7 +74,12 @@ firebase.initializeApp(firebaseConfig);
     Resetpwd,
     Closet,
     Feed,
-    Amigos
+    Amigos,
+    AddAmigos,
+    MeusAmigos,
+    Seguindo,
+    Seguidores,
+    Seguir
   ],
   providers: [
     StatusBar,
