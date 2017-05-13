@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { AlertController, ActionSheetController, MenuController } from 'ionic-angular';
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import { NavController,AlertController, ActionSheetController, MenuController } from 'ionic-angular';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { PerfilService } from '../../providers/perfil-service';
+import { Feed } from '../feed/feed';
+import firebase from 'firebase';
 
 @Component({
   selector: 'page-closet',
@@ -9,25 +11,29 @@ import { PerfilService } from '../../providers/perfil-service';
 })
 
 export class Closet {
-  private closetsID: string;
-  private categorias: FirebaseListObservable<any>;
-  roupas: FirebaseListObservable<any>;//equivale a songs
+  closet: any;
+  categorias: FirebaseListObservable<any>;//equivale a songs
 
-  constructor(public perfilService: PerfilService, public alertCtrl: AlertController, public menuCtrl: MenuController, public af: AngularFire, public actionSheetCtrl: ActionSheetController) {
+  constructor(public navCtrl: NavController,public perfilService: PerfilService, public alertCtrl: AlertController, public menuCtrl: MenuController, af: AngularFire, public actionSheetCtrl: ActionSheetController) {
+    this.menuCtrl.enable(true, 'menu2');
     this.perfilService.setDataPerfil();
-    this.roupas = af.database.list('/roupas');
-    this.menuCtrl.enable(true, 'menu1');
+    this.closet= firebase.database().ref('/userData/'+firebase.auth().currentUser.uid+'/closet');
+    this.categorias = af.database.list('/categorias');
   }
 
-  addRoupa() {
+  goLook(){
+    this.navCtrl.setRoot(Feed);
+  }
+
+  addCategoria() {
     let prompt = this.alertCtrl.create({
       title: 'Nova Categoria',
       message: "Adicione uma nova categoria",
       inputs: [
         {
-          name: 'title',
-          placeholder: 'Title'
-        },
+          name: 'titulo',
+          placeholder: 'Titulo'
+        }
       ],
       buttons: [
         {
@@ -39,8 +45,8 @@ export class Closet {
         {
           text: 'Salvar',
           handler: data => {
-            this.roupas.push({
-              title: data.title
+            this.categorias.push({
+              titulo: data.titulo
             });
           }
         }
@@ -49,7 +55,7 @@ export class Closet {
     prompt.present();
   }
 
-  showOptions(roupaId, roupaCategoria) {
+  showOptions(categoriaID, categoriaAtual) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Opções',
       buttons: [
@@ -57,12 +63,12 @@ export class Closet {
           text: 'Excluir',
           role: 'destructive',
           handler: () => {
-            this.removeCategoria(roupaId);
+            this.removeCategoria(categoriaID);
           }
         }, {
           text: 'Renomear',
           handler: () => {
-            this.updateCategoria(roupaId, roupaCategoria);
+            this.updateCategoria(categoriaID, categoriaAtual);
           }
         }, {
           text: 'Cancelar',
@@ -76,19 +82,19 @@ export class Closet {
     actionSheet.present();
   }
 
-  removeCategoria(roupaId: string) {
-    this.roupas.remove(roupaId);
+  removeCategoria(categoriaID: string) {
+    this.categorias.remove(categoriaID);
   }
 
-  updateCategoria(roupaId, roupaCategoria) {
+  updateCategoria(categoriaID, categoriaAtual) {
     let prompt = this.alertCtrl.create({
       title: 'Renomear Categoria',
       message: "Altere o nome da categoria",
       inputs: [
         {
-          name: 'title',
+          name: 'titulo',
           placeholder: 'Title',
-          value: roupaCategoria
+          value: categoriaAtual
         },
       ],
       buttons: [
@@ -101,8 +107,8 @@ export class Closet {
         {
           text: 'Salvar',
           handler: data => {
-            this.roupas.update(roupaId, {
-              title: data.title
+            this.categorias.update(categoriaID, {
+              titulo: data.titulo
             });
           }
         }

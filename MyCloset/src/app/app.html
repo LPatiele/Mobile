@@ -6,18 +6,16 @@
         <h2>My Closet</h2>
       </div>
     </div>
-    <ion-fab right bottom>
-      <button ion-fab mini color="light" (click)="this.menu.addRoupa()"><ion-icon name="add"></ion-icon></button>
-    </ion-fab>
-    <ion-list class="listA">
-      <ion-item *ngFor="let roupa of this.menu.roupas | async" (click)="this.menu.showOptions(roupa.$key, roupa.title)" padding class="listA" menuToggle>
-        <img item-left src='https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Fcabide.png?alt=media&token=c3fb757d-31cd-4dd1-ac2d-e9ed87d70ac7'> {{this.menu.roupa.title}}
+    <ion-list class="list">
+      <ion-item *ngFor="let categoria of this.menu.categorias | async" (click)="this.menu.showOptions(categoria.$key, categoria.title)" padding>
+        <img item-left src='https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Fcabide.png?alt=media&token=c3fb757d-31cd-4dd1-ac2d-e9ed87d70ac7'>
+        {{this.menu.categoria.title}}
       </ion-item>
     </ion-list>
+    <ion-fab right bottom>
+      <button ion-fab mini color="light" (click)="this.menu.addCategoria()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
   </ion-content>
-  <ion-fab right bottom>
-   <button ion-fab mini color="light" (click)="goNovidades()" menuToggle><ion-icon name="return-left" ></ion-icon></button>
- </ion-fab>
 </ion-menu>
 
 <ion-menu id="menu2" [content]="mycontent">

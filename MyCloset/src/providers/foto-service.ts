@@ -13,17 +13,10 @@ declare var window: any;
 @Injectable()
 export class FotoService {
 
-  // imgPerfil: any;
 
   constructor(public http: Http, private camera: Camera, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController) {
 
   }
-
-  // setImgPerfil(){
-  //   this.carregaFotoPerfil((data) => {
-  //     this.imgPerfil = data;
-  //   });
-  // }
 
   setOptions(srcType) {
     var options = {
@@ -152,7 +145,7 @@ export class FotoService {
           var reader = new FileReader();
           reader.onloadend = (evt: any) => {
             imgBlob = new Blob([evt.target.result], { type: 'image/jpeg/jpg' });
-            imgBlob.name = 'amostra.jpg';
+            imgBlob.name = 'perfil.jpg';
             resolve(imgBlob);
           };
           reader.onerror = (e) => {
@@ -166,7 +159,7 @@ export class FotoService {
   }
 
   uploadDataPerfil(imageBlob) {
-    var fileName = 'amostra-' + new Date().getTime() + '.jpg';
+    var fileName = 'perfil-' + new Date().getTime() + '.jpg';
     var pasta = firebase.auth().currentUser.uid;
 
     var anteriorName= this.fotoAnterior();
@@ -188,7 +181,7 @@ export class FotoService {
   }
 
   uploadData(imageBlob) {
-    var fileName = 'amostra-' + new Date().getTime() + '.jpg';
+    var fileName = 'perfil-' + new Date().getTime() + '.jpg';
     var pasta = firebase.auth().currentUser.uid;
 
     return new Promise((resolve, reject) => {
@@ -225,18 +218,13 @@ export class FotoService {
     return new Promise((resolve, reject) => {
       var dataToSave = {
         'url': uploadSnapshot.downloadURL, // url to access file
-        'imgNome': uploadSnapshot.metadata.name, // name of the file
-        'ultimaAtualizacao': new Date().getTime()
+        'imgNome': uploadSnapshot.metadata.name // name of the file
       };
       ref.child(firebase.auth().currentUser.uid).update(dataToSave, (response) => {
         resolve(response);
       }).catch((error) => {
         reject(error);
       });
-      // this.carregaFotoPerfil((data) => {
-      //   this.imgPerfil = data;
-      //   console.log("URL: ", this.imgPerfil);
-      // });
     });
 
   }

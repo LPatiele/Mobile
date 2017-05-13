@@ -22,27 +22,25 @@
 </ion-header>
 
 <ion-content padding class="page">
-
-
-
-
-
+<div>
+<div>
   <ion-list>
-
-    <!-- <ion-item-group>
     <ion-item-divider color="light">Solicitações</ion-item-divider>
-    <ion-item *ngFor="let user of solicitacao | async" class="list">
+    <ion-item *ngFor="let solicitante of solicitacao | async" class="list">
     <ion-avatar item-left>
-      <img src={{user.url}}>
+      <img src={{solicitante.url}}>
     </ion-avatar>
-    <h2>{{user.nome}}</h2>
+    <h2>{{solicitante.nome}}</h2>
     <p>local</p>
-    <ion-icon name="checkmark" item-right (click)="aceitarSolicitação()"></ion-icon>
+    <ion-icon name="checkmark" item-right (click)="aceitarSolicitacao()"></ion-icon>
   </ion-item>
-</ion-item-group>
+  </ion-list>
+</div>
 
-  <ion-item-group> -->
-      <ion-item-divider color="light"></ion-item-divider>
+
+<div >
+  <ion-list>
+      <ion-item-divider color="light">Faça novos amigos</ion-item-divider>
     <ion-item *ngFor="let user of usuarios | async" class="list">
     <ion-avatar item-left>
       <img src={{user.url}}>
@@ -51,9 +49,9 @@
     <p>local</p>
     <ion-icon name="person-add" item-right (click)="solicitarAmizade(user.$key)"></ion-icon>
   </ion-item>
-<!-- </ion-item-group> -->
-
   </ion-list>
+</div>
+</div>
 
   <ion-fab right bottom>
    <button ion-fab mini color="light"><ion-icon name="search" ></ion-icon></button>

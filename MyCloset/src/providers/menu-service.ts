@@ -10,13 +10,13 @@ import firebase from 'firebase';
 
 @Injectable()
 export class MenuService {
-  roupas: FirebaseListObservable<any>;//menu1
+  categorias: FirebaseListObservable<any>;//menu1
 
   constructor(public http: Http, public authService: AuthService, public alertCtrl: AlertController, public af: AngularFire, public actionSheetCtrl: ActionSheetController) {
-    this.roupas = af.database.list('/roupas');
+    this.categorias = af.database.list('/categorias');
   }
 
-  addRoupa() {//menu1
+  addCategoria() {//menu1
     let prompt = this.alertCtrl.create({
       title: 'Nova Categoria',
       message: "Adicione uma nova categoria",
@@ -36,7 +36,7 @@ export class MenuService {
         {
           text: 'Salvar',
           handler: data => {
-            this.roupas.push({
+            this.categorias.push({
               title: data.title
             });
           }
@@ -46,7 +46,7 @@ export class MenuService {
     prompt.present();
   }
 
-  showOptions(roupaId, roupaCategoria) {//menu1
+  showOptions(categoriaID, roupaCategoria) {//menu1
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Opções',
       buttons: [
@@ -54,12 +54,12 @@ export class MenuService {
           text: 'Excluir',
           role: 'destructive',
           handler: () => {
-            this.removeCategoria(roupaId);
+            this.removeCategoria(categoriaID);
           }
         }, {
           text: 'Renomear',
           handler: () => {
-            this.updateCategoria(roupaId, roupaCategoria);
+            this.updateCategoria(categoriaID, roupaCategoria);
           }
         }, {
           text: 'Cancelar',
@@ -73,11 +73,11 @@ export class MenuService {
     actionSheet.present();
   }
 
-  removeCategoria(roupaId: string) {//menu1
-    this.roupas.remove(roupaId);
+  removeCategoria(categoriaID: string) {//menu1
+    this.categorias.remove(categoriaID);
   }
 
-  updateCategoria(roupaId, roupaCategoria) {//menu1
+  updateCategoria(categoriaID, roupaCategoria) {//menu1
     let prompt = this.alertCtrl.create({
       title: 'Renomear Categoria',
       message: "Altere o nome da categoria",
@@ -98,7 +98,7 @@ export class MenuService {
         {
           text: 'Salvar',
           handler: data => {
-            this.roupas.update(roupaId, {
+            this.categorias.update(categoriaID, {
               title: data.title
             });
           }
