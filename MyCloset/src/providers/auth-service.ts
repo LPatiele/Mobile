@@ -10,14 +10,12 @@ export class AuthService {
   private userData: any;
   private closets: any;
   private idCloset: any;
-  private categorias: any;
-  public categoriasId: any
+
 
   constructor(public http: Http) {
     this.fireAuth = firebase.auth();
     this.userData = firebase.database().ref('/userData/');
     this.closets = firebase.database().ref('/closets/');
-    this.categorias = firebase.database().ref('/categorias/');
   }
 
   // function for login
@@ -32,7 +30,7 @@ export class AuthService {
     .then((newUser) => {
 
       this.idCloset = this.closets.push({ user: newUser.uid}).key;
-      this.categoriasId = this.categorias.push({closet: this.idCloset}).key;
+
       this.userData.child(newUser.uid).set({
         email: email,
         username: username,

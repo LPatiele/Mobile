@@ -1,10 +1,10 @@
 <ion-header>
   <ion-navbar>
-    <ion-buttons start>
+    <!-- <ion-buttons start>
     <button ion-button icon-only (click)="goLook()">
         <ion-icon name="return-left"  ></ion-icon>
       </button>
-  </ion-buttons>
+  </ion-buttons> -->
     <ion-buttons >
       <button ion-button>
       <ion-item>
@@ -25,15 +25,23 @@
 </ion-header>
 
 <ion-content padding class="page">
+  <ion-card *ngIf="categorias.length >= 1">
+    <ion-card-header>
+      Ainda não existem categorias no seu closet
+  </ion-card-header>
+    <ion-card-content>
+      Para adicionar suas categorias basta clicar no botão flutuante.
+    </ion-card-content>
+  </ion-card>
 
   <ion-list>
-    <ion-item *ngFor="let categoria of categorias | async" (click)="showOptions(categoria.$key, categoria.title)" padding class="list">
+    <ion-item *ngFor="let categoria of categorias | async" (click)="showOptions(categoria.$key, categoria.titulo)" padding class="list">
       <img src="../../assets/icon/cabide.png">
             {{categoria.titulo}}
     </ion-item>
   </ion-list>
 
-  <ion-fab left bottom>
+  <ion-fab right bottom>
      <button ion-fab mini color="light" (click)="addCategoria()"><ion-icon name="add" ></ion-icon></button>
    </ion-fab>
 

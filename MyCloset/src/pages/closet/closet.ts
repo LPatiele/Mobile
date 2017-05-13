@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController,AlertController, ActionSheetController, MenuController } from 'ionic-angular';
+import { NavController, AlertController, ActionSheetController, MenuController } from 'ionic-angular';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { PerfilService } from '../../providers/perfil-service';
 import { Feed } from '../feed/feed';
@@ -14,14 +14,42 @@ export class Closet {
   closet: any;
   categorias: FirebaseListObservable<any>;//equivale a songs
 
-  constructor(public navCtrl: NavController,public perfilService: PerfilService, public alertCtrl: AlertController, public menuCtrl: MenuController, af: AngularFire, public actionSheetCtrl: ActionSheetController) {
+  constructor(public navCtrl: NavController, public perfilService: PerfilService, public alertCtrl: AlertController, public menuCtrl: MenuController, af: AngularFire, public actionSheetCtrl: ActionSheetController) {
     this.menuCtrl.enable(true, 'menu2');
     this.perfilService.setDataPerfil();
-    this.closet= firebase.database().ref('/userData/'+firebase.auth().currentUser.uid+'/closet');
-    this.categorias = af.database.list('/categorias');
+    this.carregaClosetID((data) => {
+      this.closet = data;
+      console.log(this.closet);
+    });
+
+  console.log(this.closet);
+    console.log('1');
+
+    // var starCategorias= firebase.database().ref('closets/' + this.closet + '/categorias');
+    // starCategorias.on('value', function(snapshot) {
+    //   updateStarCount(postElement, snapshot.val());
+    // });
+    this.categorias= this.af.database.list('/closets', { preserveSnapshot: true})
+    .subscribe(snapshots=>{
+        snapshots.forEach(snapshot => {
+          console.log(snapshot.key, snapshot.val());
+        });
+    })
+      // this.categorias = af.database.list('/closets/'+ this.closet + '/nome');
+    console.log('2');
+    console.log(this.categorias);
   }
 
-  goLook(){
+
+
+  carregaClosetID(callback: (data) => void) {
+    firebase.database().ref('userData').child(firebase.auth().currentUser.uid).once('value', (snapshot: any) => {
+      var element = snapshot.val().closet;
+      callback(element);
+    });
+  }
+
+  goLook() {
     this.navCtrl.setRoot(Feed);
   }
 
@@ -46,7 +74,7 @@ export class Closet {
           text: 'Salvar',
           handler: data => {
             this.categorias.push({
-              titulo: data.titulo
+              titulo: data.titulo,
             });
           }
         }
