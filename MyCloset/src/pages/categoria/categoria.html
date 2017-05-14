@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+      <ion-title >{{this.nome}}</ion-title>
+      <ion-buttons end>
+      <button ion-button icon-only (click)="this.fotoService.goRoupa()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="page">
+  <ion-grid>
+    <ion-row *ngFor="let roupa of roupas  | async">
+      <ion-col col-6>
+        <ion-card>
+          <img src={{roupa.url}}/>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-fab right bottom>
+    <button ion-fab mini color="light"><ion-icon name="search" ></ion-icon></button>
+  </ion-fab>
+
+</ion-content>

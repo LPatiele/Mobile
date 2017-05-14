@@ -108,8 +108,8 @@ export class MenuService {
   //   prompt.present();
   // }
   //
-  // logout() {
-  //   this.authService.doLogout();
-  // }
+  logout() {
+    this.authService.doLogout();
+  }
 
 }

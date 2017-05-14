@@ -12,8 +12,6 @@ declare var window: any;
 
 @Injectable()
 export class FotoService {
-
-
   constructor(public http: Http, private camera: Camera, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController) {
 
   }
@@ -29,6 +27,56 @@ export class FotoService {
       targetHeight: 640,
     }
     return options;
+  }
+
+  goRoupa(ref) {
+    let prompt = this.alertCtrl.create({
+      title: 'Adicionar peça de roupa',
+      // message: "Adicione uma nova peça ao seu closet",
+      buttons: [
+        {
+          text: 'Camera',
+          handler: data => {
+            var srcType = this.camera.PictureSourceType.CAMERA;
+            var options = this.setOptions(srcType);
+
+            this.camera.getPicture(options).then((imageData) => {
+              return this.toBlob(imageData, 1);
+            }).then((imageBlob) => {
+              return this.uploadData(imageBlob);
+            }).then((uploadSnapshot: any) => {
+              return this.salvarRoupa(uploadSnapshot,ref);
+            }).then((uploadSnapshot: any) => {
+              //alert('Arquivo salvo para o catálogo com sucesso');
+            }, (error) => {
+              alert('Erro ' + (error.message || error));
+
+            });
+
+          }
+        },
+        {
+          text: 'Galeria',
+          handler: data => {
+            var srcType = this.camera.PictureSourceType.PHOTOLIBRARY;
+            var options = this.setOptions(srcType);
+
+            this.camera.getPicture(options).then((imageData) => {
+              return this.toBlob(imageData, 2);
+            }).then((imageBlob) => {
+              return this.uploadDataRoupa(imageBlob);
+            }).then((uploadSnapshot: any) => {
+              return this.salvarRoupa(uploadSnapshot, ref);
+            }).then((uploadSnapshot: any) => {
+              //alert('Arquivo salvo para o catálogo com sucesso');
+            }, (error) => {
+              alert('Erro ' + (error.message || error));
+            });
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 
   goFoto() {
@@ -181,11 +229,29 @@ export class FotoService {
   }
 
   uploadData(imageBlob) {
-    var fileName = 'perfil-' + new Date().getTime() + '.jpg';
+    var fileName = 'imagem-' + new Date().getTime() + '.jpg';
     var pasta = firebase.auth().currentUser.uid;
 
     return new Promise((resolve, reject) => {
       var fileRef = firebase.storage().ref('imagens/' + pasta + '/' + fileName);
+      var uploadTask = fileRef.put(imageBlob);
+
+      uploadTask.on('state_changed', (snapshot) => {
+        console.log('snapshot progess ' + snapshot);
+      }, (error) => {
+        reject(error);
+      }, () => {
+        resolve(uploadTask.snapshot);
+      });
+    });
+  }
+
+  uploadDataRoupa(imageBlob) {
+    var fileName = 'imagem-' + new Date().getTime() + '.jpg';
+    var pasta = firebase.auth().currentUser.uid;
+
+    return new Promise((resolve, reject) => {
+      var fileRef = firebase.storage().ref('roupas/' + pasta + '/' + fileName);
       var uploadTask = fileRef.put(imageBlob);
 
       uploadTask.on('state_changed', (snapshot) => {
@@ -210,6 +276,20 @@ export class FotoService {
     firebase.database().ref('userData').child(firebase.auth().currentUser.uid).once('value', (snapshot: any) => {
       var element = snapshot.val().url;
       callback(element);
+    });
+  }
+
+  salvarRoupa(uploadSnapshot,ref) {
+    return new Promise((resolve, reject) => {
+      var dataToSave = {
+        'url': uploadSnapshot.downloadURL, // url to access file
+        'imgNome': uploadSnapshot.metadata.name // name of the file
+      };
+      ref.child(firebase.auth().currentUser.uid).push(dataToSave, (response) => {
+        resolve(response);
+      }).catch((error) => {
+        reject(error);
+      });
     });
   }
 

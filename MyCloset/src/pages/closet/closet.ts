@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, AlertController, ActionSheetController, MenuController } from 'ionic-angular';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { PerfilService } from '../../providers/perfil-service';
-import { Feed } from '../feed/feed';
+import { Categoria } from '../categoria/categoria';
 import firebase from 'firebase';
 
 @Component({
@@ -11,6 +11,7 @@ import firebase from 'firebase';
 })
 
 export class Closet {
+  roupasID: any;
   closet: any;
   categorias: FirebaseListObservable<any>;//equivale a songs
   // numCtg :any;
@@ -19,12 +20,13 @@ export class Closet {
     var self = this;
     firebase.database().ref('userData').child(firebase.auth().currentUser.uid).once('value', (snapshot: any) => {
       self.closet = snapshot.val().closet;
-      console.log(self.closet + '    kkkk');
-      console.log(this.closet + '   1111');
+      self.roupasID = snapshot.val().roupas;
+      console.log(this.roupasID + '    roupas');
+      console.log(this.closet + '   closet');
 
       this.categorias = af.database.list('/closets/' + self.closet + '/categorias');
-      console.log(self.categorias + '    kkkk');
-      console.log(this.categorias + '    11111');
+
+
 
       // var ref = firebase.database().ref('closets').child(self.closet);
       //   ref.once("value", function(snapshot) {
@@ -44,11 +46,17 @@ export class Closet {
 
 
 
-  goLook() {
-    this.navCtrl.setRoot(Feed);
+  goCategoria(categoriaID, categoriaAtual) {
+    this.navCtrl.push(Categoria, {
+      id: categoriaID,
+      nome: categoriaAtual,
+      closet: this.closet,
+      idRoupas: this.roupasID
+    });
   }
 
   addCategoria() {
+    let refRoupas = firebase.database().ref('/roupas/'+ this.roupasID+'/');
     let prompt = this.alertCtrl.create({
       title: 'Nova Categoria',
       message: "Adicione uma nova categoria",
@@ -70,6 +78,7 @@ export class Closet {
           handler: data => {
             this.categorias.push({
               titulo: data.titulo,
+              idRoupas:refRoupas.push({ nomeCtg: data.titulo}).key
             });
           }
         }

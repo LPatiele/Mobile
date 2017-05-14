@@ -37,7 +37,7 @@
   <ion-list>
 
     <!-- <ion-item *ngFor="let categoria of categorias | async" (click)="showOptions(categoria.$key, categoria.titulo)" padding > -->
-      <ion-card *ngFor="let categoria of categorias | async" (click)="showOptions(categoria.$key, categoria.titulo)" >
+      <ion-card *ngFor="let categoria of categorias | async" (click)="goCategoria(categoria.$key, categoria.titulo)" >
      <img src="assets/image/gaveta.png"/>
      <div class="card-title">{{categoria.titulo}}</div>
    </ion-card>
