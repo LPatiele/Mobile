@@ -44,7 +44,7 @@ export class Categoria {
   }
 
   addRoupas() {
-
+   this.fotoService.goRoupa(this.refPecasCatg);
   }
 
 

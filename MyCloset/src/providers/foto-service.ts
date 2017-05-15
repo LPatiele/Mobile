@@ -29,6 +29,56 @@ export class FotoService {
     return options;
   }
 
+  goFotoLook(ref) {
+    let prompt = this.alertCtrl.create({
+      title: 'Adicionar peça de roupa',
+      // message: "Adicione uma nova peça ao seu closet",
+      buttons: [
+        {
+          text: 'Camera',
+          handler: data => {
+            var srcType = this.camera.PictureSourceType.CAMERA;
+            var options = this.setOptions(srcType);
+
+            this.camera.getPicture(options).then((imageData) => {
+              return this.toBlob(imageData, 1);
+            }).then((imageBlob) => {
+              return this.uploadDataLook(imageBlob);
+            }).then((uploadSnapshot: any) => {
+              return this.salvarRef(uploadSnapshot,ref);
+            }).then((uploadSnapshot: any) => {
+              //alert('Arquivo salvo para o catálogo com sucesso');
+            }, (error) => {
+              alert('Erro ' + (error.message || error));
+
+            });
+
+          }
+        },
+        {
+          text: 'Galeria',
+          handler: data => {
+            var srcType = this.camera.PictureSourceType.PHOTOLIBRARY;
+            var options = this.setOptions(srcType);
+
+            this.camera.getPicture(options).then((imageData) => {
+              return this.toBlob(imageData, 2);
+            }).then((imageBlob) => {
+              return this.uploadDataLook(imageBlob);
+            }).then((uploadSnapshot: any) => {
+              return this.salvarRef(uploadSnapshot, ref);
+            }).then((uploadSnapshot: any) => {
+              //alert('Arquivo salvo para o catálogo com sucesso');
+            }, (error) => {
+              alert('Erro ' + (error.message || error));
+            });
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
   goRoupa(ref) {
     let prompt = this.alertCtrl.create({
       title: 'Adicionar peça de roupa',
@@ -43,9 +93,9 @@ export class FotoService {
             this.camera.getPicture(options).then((imageData) => {
               return this.toBlob(imageData, 1);
             }).then((imageBlob) => {
-              return this.uploadData(imageBlob);
+              return this.uploadDataRoupa(imageBlob);
             }).then((uploadSnapshot: any) => {
-              return this.salvarRoupa(uploadSnapshot,ref);
+              return this.salvarRef(uploadSnapshot,ref);
             }).then((uploadSnapshot: any) => {
               //alert('Arquivo salvo para o catálogo com sucesso');
             }, (error) => {
@@ -66,7 +116,7 @@ export class FotoService {
             }).then((imageBlob) => {
               return this.uploadDataRoupa(imageBlob);
             }).then((uploadSnapshot: any) => {
-              return this.salvarRoupa(uploadSnapshot, ref);
+              return this.salvarRef(uploadSnapshot, ref);
             }).then((uploadSnapshot: any) => {
               //alert('Arquivo salvo para o catálogo com sucesso');
             }, (error) => {
@@ -264,6 +314,24 @@ export class FotoService {
     });
   }
 
+  uploadDataLook(imageBlob) {
+    var fileName = 'imagem-' + new Date().getTime() + '.jpg';
+    var pasta = firebase.auth().currentUser.uid;
+
+    return new Promise((resolve, reject) => {
+      var fileRef = firebase.storage().ref('looks/' + pasta + '/' + fileName);
+      var uploadTask = fileRef.put(imageBlob);
+
+      uploadTask.on('state_changed', (snapshot) => {
+        console.log('snapshot progess ' + snapshot);
+      }, (error) => {
+        reject(error);
+      }, () => {
+        resolve(uploadTask.snapshot);
+      });
+    });
+  }
+
   fotoAnterior () {
     var element
     firebase.database().ref('userData').child(firebase.auth().currentUser.uid).once('value', (snapshot: any) => {
@@ -279,13 +347,13 @@ export class FotoService {
     });
   }
 
-  salvarRoupa(uploadSnapshot,ref) {
+  salvarRef(uploadSnapshot,ref) {
     return new Promise((resolve, reject) => {
       var dataToSave = {
         'url': uploadSnapshot.downloadURL, // url to access file
         'imgNome': uploadSnapshot.metadata.name // name of the file
       };
-      ref.child(firebase.auth().currentUser.uid).push(dataToSave, (response) => {
+      ref.push(dataToSave, (response) => {
         resolve(response);
       }).catch((error) => {
         reject(error);

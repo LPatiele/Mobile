@@ -8,6 +8,7 @@ import { Feed } from '../pages/feed/feed';
 import { Amigos } from '../pages/amigos/amigos';
 import { Closet } from '../pages/closet/closet';
 import { Seguir } from '../pages/seguir/seguir';
+import { Look } from '../pages/look/look';
 import firebase from 'firebase';
 
 
@@ -37,7 +38,7 @@ export class MyApp {
   }
 
   goLooks() {
-
+    this.nav.setRoot(Look);
   }
 
   goSeguir(){

@@ -2,7 +2,7 @@
   <ion-navbar>
       <ion-title >{{this.nome}}</ion-title>
       <ion-buttons end>
-      <button ion-button icon-only (click)="this.fotoService.goRoupa()">
+      <button ion-button icon-only (click)="addRoupas()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
@@ -11,8 +11,8 @@
 
 <ion-content padding class="page">
   <ion-grid>
-    <ion-row *ngFor="let roupa of roupas  | async">
-      <ion-col col-6>
+    <ion-row align-items-center>
+      <ion-col col-6 *ngFor="let roupa of roupas  | async">
         <ion-card>
           <img src={{roupa.url}}/>
         </ion-card>
