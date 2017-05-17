@@ -14,7 +14,7 @@
     </div>
   </div>
 
-  <form [formGroup]="perfilForm" >
+  <form [formGroup]="perfilForm" (submit)="atualiza()" novalidate>
     <ion-item>
       <ion-label color="primary" stacked>Nome</ion-label>
       <ion-input #nome formControlName="nome" type="text" (change)="elementChanged(nome)" placeholder="Nome"></ion-input>

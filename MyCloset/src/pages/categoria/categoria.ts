@@ -46,7 +46,9 @@ export class Categoria {
   }
 
   addRoupas() {
-   this.fotoService.goRoupa(this.refPecasCatg);
+    var titulo= 'Adicionar peça de roupa';
+    var local= 'roupas/' + firebase.auth().currentUser.uid; + '/';
+   this.fotoService.goFoto(titulo,this.refPecasCatg,local);
   }
 
 

@@ -14,9 +14,9 @@ import { Perfil } from '../perfil/perfil';
 })
 export class Look {
 
-ref:any;
+ref: any;
 
-  looks: FirebaseListObservable<any>;//equivale a songs
+looks: FirebaseListObservable<any>;//equivale a songs
 
   constructor( public fotoService: FotoService, af: AngularFire,public perfilService: PerfilService, public menuCtrl: MenuController, public navCtrl: NavController, public navParams: NavParams) {
     this.menuCtrl.enable(true, 'menu2');
@@ -31,7 +31,7 @@ ref:any;
 
   addLook() {
     var titulo='Adicionar novo look';
-    var local= 'looks/'+firebase.auth().currentUser.uid;
+    var local= 'looks/'+firebase.auth().currentUser.uid+ '/' ;
     this.fotoService.goFoto(titulo,this.ref,local);
   }
 

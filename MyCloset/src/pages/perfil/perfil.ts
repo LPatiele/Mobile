@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PerfilService } from '../../providers/perfil-service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators  } from '@angular/forms';
 import firebase from 'firebase';
 
 
@@ -18,17 +18,26 @@ export class Perfil {
   idadeChanged: boolean = false;
 
   constructor(public formBuilder: FormBuilder, public perfilService: PerfilService, public navCtrl: NavController, public navParams: NavParams) {
-    this.perfilForm= new FormGroup({
-      nome: new FormControl(),
-      username: new FormControl(),
-      telefone:new FormControl(),
-      idade:new FormControl()
+    this.perfilForm = formBuilder.group({
+      nome: '',
+      username: '',
+      telefone: '',
+      idade:''
     });
+    console.log(this.perfilForm.nome );
   }
 
   elementChanged(input) {
     let field = input.inputControl.name;
     this[field + "Changed"] = true;
+    console.log(this[field + "Changed"] );
+
+  }
+  atualiza(){
+// console.log(this.perfilForm.nome.value );
+// console.log(this.perfilForm.username.value );
+// console.log(this.perfilForm.telefone.value );
+// console.log(this.perfilForm.idade.value );
   }
 
 }

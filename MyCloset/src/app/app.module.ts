@@ -12,6 +12,8 @@ import { HomePage } from '../pages/home/home';
 import { Login } from '../pages/login/login';
 import { Closet } from '../pages/closet/closet';
 import { Feed } from '../pages/feed/feed';
+import { Make } from '../pages/make/make';
+import { Hair } from '../pages/hair/hair';
 import { Look } from '../pages/look/look';
 import { Perfil } from '../pages/perfil/perfil';
 import { Categoria } from '../pages/categoria/categoria';
@@ -23,6 +25,7 @@ import { MeusAmigos } from '../pages/meus-amigos/meus-amigos';
 import { Seguindo } from '../pages/seguindo/seguindo';
 import { Seguidores } from '../pages/seguidores/seguidores';
 import { Seguir } from '../pages/seguir/seguir';
+import { Buy } from '../pages/buy/buy';
 
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { AuthService } from '../providers/auth-service';
@@ -63,7 +66,10 @@ firebase.initializeApp(firebaseConfig);
     Seguir,
     Categoria,
     Look,
-    Perfil
+    Perfil,
+    Make,
+    Hair,
+    Buy
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -88,7 +94,10 @@ firebase.initializeApp(firebaseConfig);
     Seguir,
     Categoria,
     Look,
-    Perfil
+    Perfil,
+    Make,
+    Hair,
+    Buy
   ],
   providers: [
     StatusBar,

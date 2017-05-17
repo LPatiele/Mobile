@@ -9,6 +9,9 @@ import { Amigos } from '../pages/amigos/amigos';
 import { Closet } from '../pages/closet/closet';
 import { Seguir } from '../pages/seguir/seguir';
 import { Look } from '../pages/look/look';
+import { Make } from '../pages/make/make';
+import { Hair } from '../pages/hair/hair';
+import { Buy } from '../pages/buy/buy';
 import firebase from 'firebase';
 
 
@@ -41,7 +44,7 @@ export class MyApp {
     this.nav.setRoot(Look);
   }
 
-  goSeguir(){
+  goSeguir() {
     this.nav.setRoot(Seguir);
   }
 
@@ -54,15 +57,15 @@ export class MyApp {
   }
 
   goMaquiagem() {
-
+    this.nav.setRoot(Make);
   }
 
   goCabelo() {
-
+    this.nav.setRoot(Hair);
   }
 
   goCompras() {
-
+    this.nav.setRoot(Buy);
   }
 
 
