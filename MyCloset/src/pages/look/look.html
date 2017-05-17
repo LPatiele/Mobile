@@ -23,12 +23,11 @@
   <ion-grid>
     <ion-row align-items-center>
       <div *ngFor="let look of looks  | async">
-        <div *ngFor="let user of users  | async">
-          <ion-col col-6  *ngIf="look.user == user.&key">
+          <ion-col col-6  *ngIf="look.user == this.user">
+            <ion-card>
               <img src={{look.url}}/>
             </ion-card>
           </ion-col>
-        </div>
       </div>
     </ion-row>
   </ion-grid>

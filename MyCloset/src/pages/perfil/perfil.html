@@ -8,13 +8,38 @@
 
 
 <ion-content padding>
-  <div class="logo">
-    <div class="logo-icon">
-      <img height="100" src={{this.perfilService.imgPerfil}}>
+  <div class="user">
+    <div class="user-icon">
+      <img height="200" src={{this.perfilService.imgPerfil}} (click)="this.perfilService.fotoService.goFotoPerfil()">
     </div>
   </div>
 
-  <form [formGroup]="perfilForm" (submit)="atualiza()" novalidate>
+    <ion-item>
+      <ion-label color="primary" stacked>Nome</ion-label>
+      <ion-input #nome type="text" (change)="elementChanged(nome)" placeholder="Nome"></ion-input>
+      <ion-icon name="checkmark"></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" stacked>Nome de usuário</ion-label>
+      <ion-input #username type="text" (change)="elementChanged(username)" placeholder="Nome de usuario"></ion-input>
+      <ion-icon name="checkmark"></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" stacked>Telefone</ion-label>
+      <ion-input #telefone  type="tel" (change)="elementChanged(telefone)" placeholder="telefone"></ion-input>
+      <ion-icon name="checkmark"></ion-icon>
+    </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Idade</ion-label>
+        <ion-input #idade  type="number" (change)="elementChanged(idade)" placeholder="idade"></ion-input>
+        <ion-icon name="checkmark"></ion-icon>
+      </ion-item>
+
+
+  <!-- <form [formGroup]="perfilForm" (submit)="atualiza()" novalidate>
     <ion-item>
       <ion-label color="primary" stacked>Nome</ion-label>
       <ion-input #nome formControlName="nome" type="text" (change)="elementChanged(nome)" placeholder="Nome"></ion-input>
@@ -34,5 +59,5 @@
       <button ion-button block color="light" type="submit">
       Atualizar
     </button>
-  </form>
+  </form> -->
 </ion-content>

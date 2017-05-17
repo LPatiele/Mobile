@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, ActionSheetController, MenuController } from 'ionic-angular';
+import { NavController, AlertController, ActionSheetController } from 'ionic-angular';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { PerfilService } from '../../providers/perfil-service';
 import { Categoria } from '../categoria/categoria';
@@ -18,7 +18,7 @@ export class Closet {
   categorias: FirebaseListObservable<any>;//equivale a songs
   // numCtg :any;
 
-  constructor(public navCtrl: NavController, public perfilService: PerfilService, public alertCtrl: AlertController, public menuCtrl: MenuController, af: AngularFire, public actionSheetCtrl: ActionSheetController) {
+  constructor(public navCtrl: NavController, public perfilService: PerfilService, public alertCtrl: AlertController, af: AngularFire, public actionSheetCtrl: ActionSheetController) {
     var self = this;
     firebase.database().ref('userData').child(firebase.auth().currentUser.uid).once('value', (snapshot: any) => {
       self.closet = snapshot.val().closet;
@@ -27,21 +27,8 @@ export class Closet {
       console.log(this.closet + '   closet');
 
       this.categorias = af.database.list('/closets/' + self.closet + '/categorias');
-
-
-
-      // var ref = firebase.database().ref('closets').child(self.closet);
-      //   ref.once("value", function(snapshot) {
-      //     self.numCtg = snapshot.child("categorias").hasChildren();
-      //     console.log(  self.numCtg+' self');
-      //     console.log(  this.numCtg+' this');
-      //   });
-      //   console.log(  self.numCtg);
-      //   console.log(  this.numCtg);
-
     });
 
-    this.menuCtrl.enable(true, 'menu2');
     this.perfilService.setDataPerfil();
 
   }

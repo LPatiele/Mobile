@@ -25,8 +25,7 @@ export class Register {
       fullname: ['', Validators.compose([ Validators.required])],
       password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
     });
-    this.menuCtrl.enable(false, 'menu2');
-    this.menuCtrl.enable(false, 'menu1');
+    this.menuCtrl.enable(false);
   }
 
   elementChanged(input){

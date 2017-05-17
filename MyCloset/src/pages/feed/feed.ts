@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, MenuController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { FotoService } from '../../providers/foto-service';
 import { PerfilService } from '../../providers/perfil-service';
 import firebase from 'firebase';
@@ -18,8 +18,7 @@ export class Feed {
 looks: FirebaseListObservable<any>;
 users: FirebaseListObservable<any>;
 
-  constructor( af: AngularFire,public navCtrl: NavController, public navParams: NavParams, public perfilService: PerfilService, public fotoService: FotoService, public menuCtrl: MenuController) {
-    this.menuCtrl.enable(true, 'menu2');
+  constructor( af: AngularFire,public navCtrl: NavController, public navParams: NavParams, public perfilService: PerfilService, public fotoService: FotoService) {
     this.perfilService.setDataPerfil();
     this.looks = af.database.list('/looks');
     this.users= af.database.list('/userData');

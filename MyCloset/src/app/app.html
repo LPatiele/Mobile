@@ -1,24 +1,6 @@
-<ion-menu id="menu1" [content]="mycontent">
-  <ion-content class="page-menu">
-    <div class="logo">
-      <div class="logo-icon">
-        <img height="100" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Fgp.gif?alt=media&token=26baafa7-e550-4fd0-96a8-c7bf07f9fa77">
-        <h2>My Closet</h2>
-      </div>
-    </div>
-    <ion-list class="list">
-      <ion-item *ngFor="let categoria of this.menu.categorias | async" (click)="this.menu.showOptions(categoria.$key, categoria.title)" padding>
-        <img item-left src='https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Fcabide.png?alt=media&token=c3fb757d-31cd-4dd1-ac2d-e9ed87d70ac7'>
-        {{this.menu.categoria.title}}
-      </ion-item>
-    </ion-list>
-    <ion-fab right bottom>
-      <button ion-fab mini color="light" (click)="this.menu.addCategoria()"><ion-icon name="add"></ion-icon></button>
-    </ion-fab>
-  </ion-content>
-</ion-menu>
 
-<ion-menu id="menu2" [content]="mycontent">
+
+<ion-menu  [content]="mycontent">
   <ion-content class="page-menu">
     <div class="logo">
       <div class="logo-icon">
@@ -43,10 +25,10 @@
         <img class="img" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Farmario.png?alt=media&token=e54d47bd-3aa8-4a4e-a0c5-284f7871672c"  />
         Follow
       </button>
-      <!-- <button ion-item (click)="goDicas()" menuToggle>
+      <button ion-item (click)="goDicas()" menuToggle>
         <img class="img" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Farmario.png?alt=media&token=e54d47bd-3aa8-4a4e-a0c5-284f7871672c"  />
         Fashion tips
-      </button> -->
+      </button>
       <button ion-item (click)="goMaquiagem()" menuToggle>
         <img class="img" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Farmario.png?alt=media&token=e54d47bd-3aa8-4a4e-a0c5-284f7871672c"  />
         Make
@@ -55,14 +37,14 @@
         <img class="img" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Farmario.png?alt=media&token=e54d47bd-3aa8-4a4e-a0c5-284f7871672c"  />
         Hair
       </button>
-      <!-- <button ion-item (click)="goAmigos()" menuToggle>
+      <button ion-item (click)="goAmigos()" menuToggle>
         <img class="img" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Farmario.png?alt=media&token=e54d47bd-3aa8-4a4e-a0c5-284f7871672c"  />
         Friends
-      </button> -->
-      <!-- <button ion-item (click)="goCompras()" menuToggle>
+      </button>
+      <button ion-item (click)="goCompras()" menuToggle>
         <img class="img" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Farmario.png?alt=media&token=e54d47bd-3aa8-4a4e-a0c5-284f7871672c"  />
         Buy
-      </button> -->
+      </button>
       <button ion-item (click)="this.menu.logout()" menuToggle>
         <img class="img" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Farmario.png?alt=media&token=e54d47bd-3aa8-4a4e-a0c5-284f7871672c"  />
         Exit

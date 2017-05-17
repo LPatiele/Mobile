@@ -21,8 +21,7 @@ export class Resetpwd{
     this.resetpwdForm = formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.pattern(EMAIL_REGEXP)])]
     });
-    this.menuCtrl.enable(false, 'menu2');
-    this.menuCtrl.enable(false, 'menu1');
+    this.menuCtrl.enable(false);
   }
 
   elementChanged(input){

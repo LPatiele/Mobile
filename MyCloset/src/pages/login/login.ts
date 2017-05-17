@@ -26,8 +26,7 @@ export class Login {
       email: ['', Validators.compose([Validators.required, Validators.pattern(EMAIL_REGEXP)])],
       password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
     });
-    this.menuCtrl.enable(false, 'menu2');
-    this.menuCtrl.enable(false, 'menu1');
+    this.menuCtrl.enable(false);
   }
 
   elementChanged(input){

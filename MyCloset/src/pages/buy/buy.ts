@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PerfilService } from '../../providers/perfil-service';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import firebase from 'firebase';
@@ -13,7 +13,7 @@ import firebase from 'firebase';
 export class Buy {
   Buys: FirebaseListObservable<any>;
 
-  constructor(/*private browserTab: BrowserTab,*/ af: AngularFire,public perfilService: PerfilService, public menuCtrl: MenuController,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(/*private browserTab: BrowserTab,*/ af: AngularFire,public perfilService: PerfilService,public navCtrl: NavController, public navParams: NavParams) {
   //   this.Buys = af.database.list('/buy' );
   //   browserTab.isAvailable()
   //  .then((isAvailable: boolean) => {
