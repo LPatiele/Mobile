@@ -18,6 +18,7 @@ export class Perfil {
   idadeChanged: boolean = false;
 
   constructor(public formBuilder: FormBuilder, public perfilService: PerfilService, public navCtrl: NavController, public navParams: NavParams) {
+    this.perfilService.setDataPerfil();
     this.perfilForm = formBuilder.group({
       nome: '',
       username: '',
@@ -34,8 +35,8 @@ export class Perfil {
 
   }
   atualiza(){
-// console.log(this.perfilForm.nome.value );
-// console.log(this.perfilForm.username.value );
+console.log(this.perfilForm.nome );
+console.log(this.perfilForm.username );
 // console.log(this.perfilForm.telefone.value );
 // console.log(this.perfilForm.idade.value );
   }

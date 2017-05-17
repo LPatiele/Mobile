@@ -48,7 +48,6 @@ export class FotoService {
             reject(e);
           };
           reader.readAsArrayBuffer(resFile);
-          alert('termina o blob ');
         });
       });
     });
@@ -122,7 +121,8 @@ export class FotoService {
     return new Promise((resolve, reject) => {
       var dataToSave = {
         'url': uploadSnapshot.downloadURL, // url to access file
-        'imgNome': uploadSnapshot.metadata.name // name of the file
+        'imgNome': uploadSnapshot.metadata.name, // name of the file
+        'user': firebase.auth().currentUser.uid
       };
       ref.push(dataToSave, (response) => {
         resolve(response);

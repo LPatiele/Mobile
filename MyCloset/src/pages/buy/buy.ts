@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 import { PerfilService } from '../../providers/perfil-service';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import firebase from 'firebase';
-import { BrowserTab } from '@ionic-native/browser-tab';
+//import { BrowserTab } from '@ionic-native/browser-tab';
 
 
 @Component({
@@ -13,22 +13,22 @@ import { BrowserTab } from '@ionic-native/browser-tab';
 export class Buy {
   Buys: FirebaseListObservable<any>;
 
-  constructor(private browserTab: BrowserTab, af: AngularFire,public perfilService: PerfilService, public menuCtrl: MenuController,public navCtrl: NavController, public navParams: NavParams) {
-    this.Buys = af.database.list('/buy' );
-    browserTab.isAvailable()
-   .then((isAvailable: boolean) => {
-
-     if (isAvailable) {
-
-       browserTab.openUrl('https://www.youtube.com/');
-
-     } else {
-
-       // open URL with InAppBrowser instead or SafariViewController
-
-     }
-
-   });
+  constructor(/*private browserTab: BrowserTab,*/ af: AngularFire,public perfilService: PerfilService, public menuCtrl: MenuController,public navCtrl: NavController, public navParams: NavParams) {
+  //   this.Buys = af.database.list('/buy' );
+  //   browserTab.isAvailable()
+  //  .then((isAvailable: boolean) => {
+   //
+  //    if (isAvailable) {
+   //
+  //      browserTab.openUrl('https://www.youtube.com/');
+   //
+  //    } else {
+   //
+  //      // open URL with InAppBrowser instead or SafariViewController
+   //
+  //    }
+   //
+  //  });
 }
 
   ionViewDidLoad() {

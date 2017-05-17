@@ -15,13 +15,13 @@ export class Make {
   constructor( public fotoService: FotoService, af: AngularFire,public perfilService: PerfilService, public menuCtrl: MenuController, public navCtrl: NavController, public navParams: NavParams) {
     this.menuCtrl.enable(true, 'menu2');
     this.perfilService.setDataPerfil();
-    this.ref= firebase.database().ref('/makes/'+ firebase.auth().currentUser.uid );
-    this.makes = af.database.list('/makes/' + firebase.auth().currentUser.uid );
+    this.ref= firebase.database().ref('/makes' );
+    this.makes = af.database.list('/makes' );
 }
 
 addMake() {
   var titulo='Adicionar nova maquiagem';
-  var local= 'makes/'+firebase.auth().currentUser.uid+ '/' ;
+  var local= 'makes/';
   this.fotoService.goFoto(titulo,this.ref,local);
 }
 

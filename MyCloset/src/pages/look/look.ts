@@ -21,8 +21,8 @@ looks: FirebaseListObservable<any>;//equivale a songs
   constructor( public fotoService: FotoService, af: AngularFire,public perfilService: PerfilService, public menuCtrl: MenuController, public navCtrl: NavController, public navParams: NavParams) {
     this.menuCtrl.enable(true, 'menu2');
     this.perfilService.setDataPerfil();
-    this.ref= firebase.database().ref('/looks/'+ firebase.auth().currentUser.uid );
-    this.looks = af.database.list('/looks/' + firebase.auth().currentUser.uid );
+    this.ref= firebase.database().ref('/looks' );
+    this.looks = af.database.list('/looks' );
 
 
   }
@@ -31,7 +31,7 @@ looks: FirebaseListObservable<any>;//equivale a songs
 
   addLook() {
     var titulo='Adicionar novo look';
-    var local= 'looks/'+firebase.auth().currentUser.uid+ '/' ;
+    var local= 'looks/' ;
     this.fotoService.goFoto(titulo,this.ref,local);
   }
 
