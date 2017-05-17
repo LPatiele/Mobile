@@ -13,6 +13,7 @@ import { Login } from '../pages/login/login';
 import { Closet } from '../pages/closet/closet';
 import { Feed } from '../pages/feed/feed';
 import { Look } from '../pages/look/look';
+import { Perfil } from '../pages/perfil/perfil';
 import { Categoria } from '../pages/categoria/categoria';
 import { Amigos } from '../pages/amigos/amigos';
 import { Register } from '../pages/register/register';
@@ -61,7 +62,8 @@ firebase.initializeApp(firebaseConfig);
     Seguidores,
     Seguir,
     Categoria,
-    Look
+    Look,
+    Perfil
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -85,7 +87,8 @@ firebase.initializeApp(firebaseConfig);
     Seguidores,
     Seguir,
     Categoria,
-    Look
+    Look,
+    Perfil
   ],
   providers: [
     StatusBar,

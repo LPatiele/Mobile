@@ -1,0 +1,38 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Alterar Perfil</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="logo">
+    <div class="logo-icon">
+      <img height="100" src="https://firebasestorage.googleapis.com/v0/b/mycloset-45165.appspot.com/o/appDefault%2Fgp.gif?alt=media&token=26baafa7-e550-4fd0-96a8-c7bf07f9fa77">
+    </div>
+  </div>
+
+  <form [formGroup]="perfilForm" >
+    <ion-item>
+      <ion-label color="primary" stacked>Nome</ion-label>
+      <ion-input #nome formControlName="nome" type="text" (change)="elementChanged(nome)" placeholder="Nome"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Nome de usuário</ion-label>
+      <ion-input #username formControlName="username" type="text" (change)="elementChanged(username)" placeholder="Nome de usuario"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Telefone</ion-label>
+      <ion-input #telefone formControlName="telefone" type="tel" (change)="elementChanged(telefone)" placeholder="telefone"></ion-input>
+    </ion-item>
+      <ion-item>
+        <ion-label color="primary" stacked>Idade</ion-label>
+        <ion-input #idade formControlName="idade" type="number" (change)="elementChanged(idade)" placeholder="idade"></ion-input>
+      </ion-item>
+      <button ion-button block color="light" type="submit">
+      Atualizar
+    </button>
+  </form>
+</ion-content>

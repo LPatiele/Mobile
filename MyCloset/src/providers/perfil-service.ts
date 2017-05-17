@@ -18,8 +18,14 @@ export class PerfilService {
   imgNome: any;
   ultimaAtualizacao: any;
   amigos: any;
+  telefone: any;
+  idade: any;
 
   constructor(public http: Http, public fotoService: FotoService) {
+
+  }
+
+  updatePerfil(){
 
   }
 

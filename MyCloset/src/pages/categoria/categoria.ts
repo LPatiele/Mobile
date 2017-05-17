@@ -4,6 +4,8 @@ import { FotoService } from '../../providers/foto-service';
 import { PerfilService } from '../../providers/perfil-service';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import firebase from 'firebase';
+import { Perfil } from '../perfil/perfil';
+
 
 @Component({
   selector: 'page-categoria',

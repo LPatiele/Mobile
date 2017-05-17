@@ -3,6 +3,7 @@ import { NavController, MenuController, AlertController, NavParams, LoadingContr
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../providers/auth-service';
 import { HomePage } from '../home/home';
+import { Perfil } from '../perfil/perfil';
 import { Register } from '../register/register';
 import { Resetpwd} from '../resetpwd/resetpwd';
 

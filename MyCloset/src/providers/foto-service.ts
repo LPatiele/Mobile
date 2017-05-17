@@ -18,65 +18,14 @@ export class FotoService {
 
   setOptions(srcType) {
     var options = {
-      quality: 100,
+      quality: 50,
       destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: srcType,
-      correctOrientation: true,
-      targetHeight: 640,
+      correctOrientation: true
     }
     return options;
-  }
-
-  goFotoLook(ref) {
-    let prompt = this.alertCtrl.create({
-      title: 'Adicionar peça de roupa',
-      // message: "Adicione uma nova peça ao seu closet",
-      buttons: [
-        {
-          text: 'Camera',
-          handler: data => {
-            var srcType = this.camera.PictureSourceType.CAMERA;
-            var options = this.setOptions(srcType);
-
-            this.camera.getPicture(options).then((imageData) => {
-              return this.toBlob(imageData, 1);
-            }).then((imageBlob) => {
-              return this.uploadDataLook(imageBlob);
-            }).then((uploadSnapshot: any) => {
-              return this.salvarRef(uploadSnapshot,ref);
-            }).then((uploadSnapshot: any) => {
-              //alert('Arquivo salvo para o catálogo com sucesso');
-            }, (error) => {
-              alert('Erro ' + (error.message || error));
-
-            });
-
-          }
-        },
-        {
-          text: 'Galeria',
-          handler: data => {
-            var srcType = this.camera.PictureSourceType.PHOTOLIBRARY;
-            var options = this.setOptions(srcType);
-
-            this.camera.getPicture(options).then((imageData) => {
-              return this.toBlob(imageData, 2);
-            }).then((imageBlob) => {
-              return this.uploadDataLook(imageBlob);
-            }).then((uploadSnapshot: any) => {
-              return this.salvarRef(uploadSnapshot, ref);
-            }).then((uploadSnapshot: any) => {
-              //alert('Arquivo salvo para o catálogo com sucesso');
-            }, (error) => {
-              alert('Erro ' + (error.message || error));
-            });
-          }
-        }
-      ]
-    });
-    prompt.present();
   }
 
   goRoupa(ref) {
@@ -91,12 +40,15 @@ export class FotoService {
             var options = this.setOptions(srcType);
 
             this.camera.getPicture(options).then((imageData) => {
-              return this.toBlob(imageData, 1);
+              return this.toBlob(imageData, false);
             }).then((imageBlob) => {
+              alert('termina o blob 2 ');
               return this.uploadDataRoupa(imageBlob);
             }).then((uploadSnapshot: any) => {
+              alert('termina upload ');
               return this.salvarRef(uploadSnapshot,ref);
             }).then((uploadSnapshot: any) => {
+              alert('salva ref ');
               //alert('Arquivo salvo para o catálogo com sucesso');
             }, (error) => {
               alert('Erro ' + (error.message || error));
@@ -112,12 +64,15 @@ export class FotoService {
             var options = this.setOptions(srcType);
 
             this.camera.getPicture(options).then((imageData) => {
-              return this.toBlob(imageData, 2);
+              return this.toBlob(imageData, true);
             }).then((imageBlob) => {
+              alert('termina o blob 2 ');
               return this.uploadDataRoupa(imageBlob);
             }).then((uploadSnapshot: any) => {
-              return this.salvarRef(uploadSnapshot, ref);
+              alert('termina upload ');
+              return this.salvarRef(uploadSnapshot,ref);
             }).then((uploadSnapshot: any) => {
+              alert('salva ref ');
               //alert('Arquivo salvo para o catálogo com sucesso');
             }, (error) => {
               alert('Erro ' + (error.message || error));
@@ -129,49 +84,23 @@ export class FotoService {
     prompt.present();
   }
 
-  goFoto() {
+  goFoto(titulo, ref, local) {
+    //titulo : titulo da page
+    //ref: referencia pra salvar no banco de dados
+    //local: local de upload da imagem
     let prompt = this.alertCtrl.create({
-      title: 'Alterar Imagem',
-      message: "Altere a imagem de perfil",
+      title: titulo,
       buttons: [
         {
           text: 'Camera',
           handler: data => {
-            var srcType = this.camera.PictureSourceType.CAMERA;
-            var options = this.setOptions(srcType);
-
-            this.camera.getPicture(options).then((imageData) => {
-              return this.toBlob(imageData, 1);
-            }).then((imageBlob) => {
-              return this.uploadData(imageBlob);
-            }).then((uploadSnapshot: any) => {
-              return this.salvarReferencia(uploadSnapshot);
-            }).then((uploadSnapshot: any) => {
-              //alert('Arquivo salvo para o catálogo com sucesso');
-            }, (error) => {
-              alert('Erro ' + (error.message || error));
-
-            });
-
+            this.picture(true,ref,local);
           }
         },
         {
           text: 'Galeria',
           handler: data => {
-            var srcType = this.camera.PictureSourceType.PHOTOLIBRARY;
-            var options = this.setOptions(srcType);
-
-            this.camera.getPicture(options).then((imageData) => {
-              return this.toBlob(imageData, 2);
-            }).then((imageBlob) => {
-              return this.uploadData(imageBlob);
-            }).then((uploadSnapshot: any) => {
-              return this.salvarReferencia(uploadSnapshot);
-            }).then((uploadSnapshot: any) => {
-              //alert('Arquivo salvo para o catálogo com sucesso');
-            }, (error) => {
-              alert('Erro ' + (error.message || error));
-            });
+            this.picture(false,ref,local);
           }
         }
       ]
@@ -191,7 +120,7 @@ export class FotoService {
             var options = this.setOptions(srcType);
 
             this.camera.getPicture(options).then((imageData) => {
-              return this.toBlob(imageData, 1);
+              return this.toBlob(imageData, false);
             }).then((imageBlob) => {
               return this.uploadDataPerfil(imageBlob);
             }).then((uploadSnapshot: any) => {
@@ -212,7 +141,7 @@ export class FotoService {
             var options = this.setOptions(srcType);
 
             this.camera.getPicture(options).then((imageData) => {
-              return this.toBlob(imageData, 2);
+              return this.toBlob(imageData, true);
             }).then((imageBlob) => {
               return this.uploadDataPerfil(imageBlob);
             }).then((uploadSnapshot: any) => {
@@ -229,11 +158,30 @@ export class FotoService {
     prompt.present();
   }
 
-  toBlob(imgUri, tipo: number) {
-    var caminho;
-    if (tipo == 1) {
-      caminho = '';
-    } else if (tipo == 2) {
+  picture(cam, ref,local){
+    var options:any;
+    if (cam){//Camera
+      options = this.setOptions(this.camera.PictureSourceType.CAMERA);
+    }else{//Galeria
+      options = this.setOptions(this.camera.PictureSourceType.PHOTOLIBRARY);
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      return this.toBlob(imageData, !cam);
+    }).then((imageBlob) => {
+      return this.uploadData(imageBlob, local);
+    }).then((uploadSnapshot: any) => {
+      return this.salvarRef(uploadSnapshot,ref);
+    }).then((uploadSnapshot: any) => {
+      //alert('Arquivo salvo para o catálogo com sucesso');
+    }, (error) => {
+      alert('Erro ' + (error.message || error));
+    });
+  }
+
+  toBlob(imgUri, tipo: Boolean) {
+    var caminho = '';
+   if (tipo) {
       caminho = 'file://';
     }
     var imgBlob: any;
@@ -243,14 +191,15 @@ export class FotoService {
           var reader = new FileReader();
           reader.onloadend = (evt: any) => {
             imgBlob = new Blob([evt.target.result], { type: 'image/jpeg/jpg' });
-            imgBlob.name = 'perfil.jpg';
+            imgBlob.name = 'imagem.jpg';
             resolve(imgBlob);
           };
           reader.onerror = (e) => {
-            console.log('Erro na leitura do arquivo: ' + e.toString());
+              alert('Erro na leitura do arquivo: ' + e.toString());
             reject(e);
           };
           reader.readAsArrayBuffer(resFile);
+          alert('termina o blob ');
         });
       });
     });
@@ -278,12 +227,12 @@ export class FotoService {
     });
   }
 
-  uploadData(imageBlob) {
-    var fileName = 'imagem-' + new Date().getTime() + '.jpg';
-    var pasta = firebase.auth().currentUser.uid;
+  uploadData(imageBlob, local) {
+    var fileName ='image-' + new Date().getTime() + '.jpg';
+    // var pasta = firebase.auth().currentUser.uid;
 
     return new Promise((resolve, reject) => {
-      var fileRef = firebase.storage().ref('imagens/' + pasta + '/' + fileName);
+       var fileRef = firebase.storage().ref(local + fileName);
       var uploadTask = fileRef.put(imageBlob);
 
       uploadTask.on('state_changed', (snapshot) => {
@@ -302,24 +251,6 @@ export class FotoService {
 
     return new Promise((resolve, reject) => {
       var fileRef = firebase.storage().ref('roupas/' + pasta + '/' + fileName);
-      var uploadTask = fileRef.put(imageBlob);
-
-      uploadTask.on('state_changed', (snapshot) => {
-        console.log('snapshot progess ' + snapshot);
-      }, (error) => {
-        reject(error);
-      }, () => {
-        resolve(uploadTask.snapshot);
-      });
-    });
-  }
-
-  uploadDataLook(imageBlob) {
-    var fileName = 'imagem-' + new Date().getTime() + '.jpg';
-    var pasta = firebase.auth().currentUser.uid;
-
-    return new Promise((resolve, reject) => {
-      var fileRef = firebase.storage().ref('looks/' + pasta + '/' + fileName);
       var uploadTask = fileRef.put(imageBlob);
 
       uploadTask.on('state_changed', (snapshot) => {

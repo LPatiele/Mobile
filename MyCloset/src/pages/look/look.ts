@@ -4,6 +4,8 @@ import { PerfilService } from '../../providers/perfil-service';
 import { FotoService } from '../../providers/foto-service';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import firebase from 'firebase';
+import { Perfil } from '../perfil/perfil';
+
 
 
 @Component({
@@ -28,7 +30,9 @@ ref:any;
   // criar os looks e add as peças q fazem parte do look
 
   addLook() {
-    this.fotoService.goFotoLook(this.ref);
+    var titulo='Adicionar novo look';
+    var local= 'looks/'+firebase.auth().currentUser.uid;
+    this.fotoService.goFoto(titulo,this.ref,local);
   }
 
 }

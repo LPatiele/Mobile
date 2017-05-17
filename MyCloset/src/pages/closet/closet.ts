@@ -4,6 +4,8 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { PerfilService } from '../../providers/perfil-service';
 import { Categoria } from '../categoria/categoria';
 import firebase from 'firebase';
+import { Perfil } from '../perfil/perfil';
+
 
 @Component({
   selector: 'page-closet',

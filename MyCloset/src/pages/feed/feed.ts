@@ -3,6 +3,8 @@ import { NavController, NavParams, MenuController } from 'ionic-angular';
 import { FotoService } from '../../providers/foto-service';
 import { PerfilService } from '../../providers/perfil-service';
 import firebase from 'firebase';
+import { Perfil } from '../perfil/perfil';
+
 
 
 
@@ -19,6 +21,9 @@ export class Feed {
     this.perfilService.setDataPerfil();
   }
 
+goPerfil(){
+  this.navCtrl.push(Perfil);
+}
 
 
 }
